@@ -14,8 +14,8 @@ RoxygenNote: 7.2.3
 Imports: 
     magick,
     data.table,
-    graphics,
     stats,
+    ggplot2,
     grDevices
 Suggests: 
     knitr,

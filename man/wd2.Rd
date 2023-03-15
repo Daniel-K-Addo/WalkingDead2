@@ -10,6 +10,7 @@ wd2(
   n,
   m,
   k,
+  fixedAllocation = FALSE,
   infect = 0.75,
   infect_radius = 0.075,
   nIterations = 10,
@@ -25,6 +26,10 @@ wd2(
 \code{m} represents the infected population size; \code{k} represents the
 healing population size.}
 
+\item{fixedAllocation}{logical with default set to \code{FALSE}. When \code{FALSE},
+group sizes are randomly determined using probability given \code{{n,m,k}}.
+When \code{TRUE}, groups sizes will be exactly as stated given \code{{n,m,k}}.}
+
 \item{infect}{numeric value between 0 and 1. This represents the probability
 of rate of change from one status to another on contact.}
 
@@ -34,8 +39,8 @@ individual can experience a status change when exposed}
 \item{nIterations}{positive integer. Represents the number of trials to run
 where each individual's status and position may be updated.}
 
-\item{flight}{logical with default set to TRUE. When TRUE, the infected are
-programmed to repel from the healers. When FALSE, the infected are programmed
+\item{flight}{logical with default set to \code{TRUE}. When \code{TRUE}, the infected are
+programmed to repel from the healers. When \code{FALSE}, the infected are programmed
 to be attracted to the non-infected.
 infected.}
 
@@ -46,9 +51,9 @@ infected.}
 \item{object}{an object of class \code{wd2}}
 }
 \description{
-This package simulates the events of infection and healing
-in a population of susceptible individuals, infected individuals, and healed
-individuals. The function is only at the development stage and thus has a
+This package simulates the events of infection (of susceptible subjects)
+and immunization (of infected subjects) in a population of susceptible, infected,
+and immunized individuals. The function is still at the development stage and thus has a
 limited number of arguments that can be altered for the simulation process.
 }
 \examples{
