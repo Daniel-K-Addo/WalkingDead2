@@ -1,8 +1,8 @@
 ---
-title: "vignette"
+title: "WalkingDead2"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{vignette}
+  %\VignetteIndexEntry{WalkingDead2}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +14,146 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+# Introduction
+ **WalkingDead2** is an extension of the [**WalkingDead**](https://github.com/UofUEpiBio/PHS7045-advanced-programming/tree/main/projects/10-walking-dead) project by [George Vegayon](https://github.com/gvegayon). As its name suggests, the **WalkingDead** project takes its inspiration from the American drama series, *the Walking Dead*. Given a population which includes at least one susceptible subject, an infected subject and an immunized subject, the **WalkingDead2** package will be useful in simulating the transitioning of subjects from one state to another. 
+
+This documentation is intended to illustrate the usage of this package while highlighting the *DOs* and *DON'Ts* in the world of **WalkingDead2**.
+
+## Relevance
+Currently, **WalkingDead2** accommodates the transition of subjects from the susceptible to infected state upon contact with an infected subject, as well as the transition of subjects from the infected to immunized state upon contact with an immunized subject. Immunized subjects do not undergo any transitions. This is practical for a communicable disease for which there is a cure that immunizes the infected but no vaccine for the susceptible. This scenario can very well be extended to different fields.
+
+## Package Installation
+**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo)). All you need is the  file named *WalkingDead2_0.1.tar.gz*. Download the file onto your local drive into your preferred folder from which you will run the installation in R. In R, you can install and load the package using the following code:
+
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+# Installing WalkingDead2 having downloaded the file into the current R working directory 
+install.packages("../WalkingDead2_0.1.tar.gz", repos = NULL)
+
+# Load the package
 library(WalkingDead2)
 ```
+
+```{r codeChunk1, eval=FALSE}
+# Installing WalkingDead2 having downloaded the file into the current R working directory 
+install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
+
+# Load the package
+library(WalkingDead2)
+```
+
+## Available Functions
+There are four functions made available in **WalkingDead2**. These include `wd2`, the primary function, and the set {`print.wd2`, `summary.wd2`, `plot.wd2`} which are applicable to the object of class $wd2$ produced by the function `wd2`.
+
+### wd2
+`wd2` simulates the possible event of transition from one state to another as defined in a population of susceptible, infected, and immunized subjects under defined contexts. Susceptible subjects can transition to be infected; infected subjects can transition to be immunized; immunized subjects do not undergo any transition. As such, equilibrium in the sub-population sizes is achieved when there are no infected subjects.
+
+##### Usage
+```{r codeChunk2, eval=FALSE}
+wd2(n, m, k, fixedAllocation = FALSE, infect = 0.75, infect_radius = 0.075, nIterations = 10, flight = TRUE)
+```
+
+##### Arguments
+* `n, m, k` numeric scalars. `n` represents the total population size; `m` represents the infected population size; `k` represents the immunized population size. Note: $n \geq 3$ and ${m,k} > 0$.
+* `fixedAllocation`	logical with default set to `FALSE`. When `FALSE`, the initial sub population sizes are randomly determined using multinomial distribution given `{n,m,k}`. When `TRUE`, the initial sub population sizes will be exactly as stated given `{n,m,k}`.
+* `infect`	numeric value between $0$ and $1$ with default set at $0.75$. This represents the infection rate.
+* `infect_radius` numeric value between $0$ and $1$  with default set at $0.075$. This represents the radius of a transition-causing subject within which an eligible subject will undergo a status change when exposed. The smaller the `infect_radius` the smaller the likelihood of transition events by a transition-causing subject.
+* `nIterations`	positive integer. Represents a number of runs during which each subject's sub population membership and location will potentially be updated. This may be viewed as some unit of time.
+* `flight`	logical with default set to `TRUE`. When `TRUE`, the infected population are programmed to move away from the immunized population. When `FALSE`, the infected population are programmed to move towards the susceptible. By default, the susceptible population will always move away from the infected population whereas the immunized population will always move towards the infected population.
+
+### summary.wd2
+`summary.wd2` is applicable to an argument of class $wd2$. This will produce a table summary indicating the respective sub population proportions at each run/unit time. As well, the number of transitions from susceptible to infected and from infected to immunized is represented together with the total number of transitions.
+
+##### Usage
+```{r codeChunk4, eval=FALSE}
+summary.wd2(object, ...)
+```
+
+##### Arguments
+* `object` an object of class $wd2$
+* `...` not in use currently
+
+### plot.wd2
+`plot.wd2` is applicable to an argument of class $wd2$. This will produce an animated plot illustrating the transitions which occurred, if any, over the number of runs specified. The animation will end earlier if equilibrium is achieved before the given number of runs. 
+
+##### Usage
+```{r codeChunk5, eval=FALSE}
+plot.wd2(x, ...)
+```
+
+##### Arguments
+* `x` an object of class $wd2$
+* `...` not in use currently
+
+### print.wd2
+`print.wd2` is applicable to an argument of class $wd2$. This will print a conclusion statement and the last few runs.
+
+##### Usage
+```{r codeChunk3, eval=FALSE}
+print.wd2(x, ...)
+```
+
+##### Arguments
+* `x` an object of class $wd2$
+* `...` not in use currently
+
+## Example
+Below is a demonstration of the functions in **WalkingDead2** at work. 
+
+```{r codeChunk6, warning=FALSE, message=FALSE}
+set.seed(2608)
+# Primary function
+temp <- wd2(n = 100, # Total Population size 
+            m = 16, # Initial Infected Population size
+            k = 4, # Initial Immunized Population size
+            fixedAllocation = FALSE, # Allocation type: Randomize if FALSE
+            infect = 0.75, 
+            infect_radius = 0.075, # Transition-causing radius
+            nIterations = 100, # Total number of runs
+            flight = FALSE # Infected will flee from immunized if TRUE
+            )
+
+# Demonstrate print.wd2
+print(temp) # or print.wd2(temp)
+
+# Demonstrate summary.wd2 and view first and last few rows
+summary(temp) |> head(10) # or summary.wd2(temp)
+summary(temp) |> tail(5)
+
+# Demonstrate plot.wd2
+plot(temp) # or plot.wd2(temp)
+```
+```{r,echo=FALSE}
+temp2<- print(temp)
+```
+
+
+This second plot shows the case when flight is set to TRUE.
+
+```{r, echo=FALSE}
+set.seed(2608)
+# Primary function
+temp <- wd2(n = 100, # Total Population size 
+            m = 16, # Initial Infected Population size
+            k = 5, # Initial Immunized Population size
+            fixedAllocation = FALSE, # Allocation type: Randomize if FALSE
+            infect = 0.75, 
+            infect_radius = 0.075, # Transition-causing radius
+            nIterations = 100, # Total number of runs
+            flight = TRUE # Infected will flee from immunized if TRUE
+            )
+plot(temp)
+temp2 <- print(temp)
+```
+
+
+## Future Directions
+In future, **WalkingDead2** will incorporate more complexity than it does currently. Complexity will allow for some control of elements within the simulation beyond those included. Other considerations which are intended to mimic real-life practice include the following:
+
+* **The Vaccinated Sub Population**
+Allowing a fourth sub-population known as the vaccinated who differ from the currently defined immunized with respect to having never been infected. This will allow transition from susceptible subjects to vaccinated subjects with the susceptible now having the option to either move towards vaccination points or flee from infected subjects. Another argument will determine whether vaccinated subjects who were previously susceptible can vaccinate the susceptible subjects OR that ability will be restricted to the mobile vaccination points at baseline. Thus, the initial vaccination points can be viewed as a target that susceptible have to move towards while avoiding contact with the infected.
+
+* **Birth and Death**
+The introduction of birth and death will be a practical addition. Births will be restricted to the susceptible and cause a rise in that population. On the other hand, deaths will occur across all sub population groups, but at different rates, leading to a decline in those populations.
+
+Suggestions for other considerations may be forwarded to the author through the contact provided.
+

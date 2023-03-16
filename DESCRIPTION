@@ -1,11 +1,10 @@
 Package: WalkingDead2
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Simulate Susceptible-Infected-Immunized State Transitions
 Version: 0.1.0
 Author: Daniel Addo
 Maintainer: Daniel Addo <Daniel.Addo@utah.edu>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package simulates the events of infection (of susceptible subjects) and immunization (of infected subjects) in a population of susceptible, infected, and immunized individuals.    The function is still at the development stage and thus has a limited number of arguments that can be altered for the simulation process.
 License: GPL (>=2)
 Encoding: UTF-8
 LazyData: true

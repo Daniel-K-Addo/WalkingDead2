@@ -4,8 +4,8 @@
 \name{WalkingDead2-package}
 \alias{WalkingDead2}
 \alias{WalkingDead2-package}
-\title{WalkingDead2: What the Package Does (Title Case)}
+\title{WalkingDead2: Simulate Susceptible-Infected-Immunized State Transitions}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+This package simulates the events of infection (of susceptible subjects) and immunization (of infected subjects) in a population of susceptible, infected, and immunized individuals. The function is still at the development stage and thus has a limited number of arguments that can be altered for the simulation process.
 }
 \keyword{internal}

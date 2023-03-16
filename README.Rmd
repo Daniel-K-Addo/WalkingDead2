@@ -18,37 +18,85 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of WalkingDead2 is to ...
+The goal of WalkingDead2 is to simulate the events of infection (of susceptible subjects) and immunization (of infected subjects) in a population of susceptible, infected, and immunized individuals. It is an extension of the [**WalkingDead**](https://github.com/UofUEpiBio/PHS7045-advanced-programming/tree/main/projects/10-walking-dead) project by [George Vegayon](https://github.com/gvegayon).
 
 ## Installation
 
-You can install the development version of WalkingDead2 like so:
+**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo)). All you need is the  file named *WalkingDead2_0.1.tar.gz*. Download the file onto your local drive into your preferred folder from which you will run the installation in R. In R, you can install and load the package using the following code:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+# Installing WalkingDead2 having downloaded the file into the current R working directory 
+install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
 ```
+
+## Brief Details
+Currently, **WalkingDead2** accommodates the transition of subjects from the susceptible to infected state upon contact with an infected subject, as well as the transition of subjects from the infected to immunized state upon contact with an immunized subject. Immunized subjects do not undergo any transitions. This is practical for a communicable disease for which there is a cure that immunizes the infected but no vaccine for the susceptible. This scenario can very well be extended to different fields.
+
+## Functions and Arguments
+There are eight arguments in, `wd2`, the primary function of **WalkingDead2**. Five of these have default values. Briefly, these arguments perform the following roles:
+
+* `n, m, k` `n` represents the total population size; `m` represents the infected population size; `k` represents the immunized population size. Note: $n \geq 3$ and ${m,k} > 0$.
+* `fixedAllocation`	a logical which determines whether the initial sub population sizes are randomly determined using multinomial distribution OR fixed given `{n,m,k}`.
+* `infect`	numeric value between $0$ and $1$ representing the infection rate.
+* `infect_radius` numeric value between $0$ and $1$  representing the radius of a transition-causing subject within which an eligible subject will undergo a status change when exposed.
+* `nIterations`	represents a number of runs during which each subject's sub population membership and location will potentially be updated. This may be viewed as some unit of time.
+* `flight`	a logical which determines if the infected population are programmed to move away from the immunized population (flight) OR move towards the susceptible (fighting to keep population numbers up). By default, the susceptible population will always move away from the infected population whereas the immunized population will always move towards the infected population.
+
+The output from `wd2` has class $wd2$ and may be passed through `print`, `summary`, and `plot` functions for varied results as demonstrated in the example below. 
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
+```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+# Installing WalkingDead2 having downloaded the file into the current R working directory 
+install.packages("C:/Users/danie/OneDrive - University of Utah/Academics/202301 Spring/Advanced Programming in R and HPC/WalkingDead2_0.1.0.tar.gz", repos = NULL)
+```
 
-```{r example}
+```{r example, warning=FALSE, message=FALSE}
+# Load the package
 library(WalkingDead2)
-## basic example code
+set.seed(2608)
+# Primary function
+temp <- wd2(n = 100, # Total Population size 
+            m = 16, # Initial Infected Population size
+            k = 4, # Initial Immunized Population size
+            fixedAllocation = FALSE, # Allocation type: Randomize if FALSE
+            infect = 0.75, 
+            infect_radius = 0.075, # Transition-causing radius
+            nIterations = 100, # Total number of runs
+            flight = FALSE # Infected will flee from immunized if TRUE
+            )
+
+# Demonstrate print.wd2
+print(temp) # or print.wd2(temp)
+
+# Demonstrate summary.wd2 and view first and last few rows
+summary(temp) |> head(10) # or summary.wd2(temp)
+summary(temp) |> tail(5)
+
+# Demonstrate plot.wd2
+plot(temp) # or plot.wd2(temp)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
+```{r,echo=FALSE}
+temp2<- print(temp)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
 
-You can also embed plots, for example:
+This second plot shows the case when flight is set to TRUE.
 
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r, echo=FALSE}
+set.seed(2608)
+# Primary function
+temp <- wd2(n = 100, # Total Population size 
+            m = 16, # Initial Infected Population size
+            k = 5, # Initial Immunized Population size
+            fixedAllocation = FALSE, # Allocation type: Randomize if FALSE
+            infect = 0.75, 
+            infect_radius = 0.075, # Transition-causing radius
+            nIterations = 100, # Total number of runs
+            flight = TRUE # Infected will flee from immunized if TRUE
+            )
+plot(temp)
+temp2 <- print(temp)
 ```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
