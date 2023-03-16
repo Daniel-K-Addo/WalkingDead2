@@ -28,9 +28,9 @@
 #' @examples
 #' require(data.table)
 #' temp <- wd2(n=100, m=15, k=5)
-#' summary(temp) |> head()
-#' plot(temp)
-#' print(temp)
+#' #summary(temp) |> head()
+#' #plot(temp)
+#' #print(temp)
 #' @export
 wd2 <-  function(n, # Population size
                  m, # Initial Infected Population size

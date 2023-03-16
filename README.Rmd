@@ -78,14 +78,14 @@ summary(temp) |> tail(5)
 plot(temp) # or plot.wd2(temp)
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
 temp2<- print(temp)
 ```
 
 
 This second plot shows the case when flight is set to TRUE.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 set.seed(2608)
 # Primary function
 temp <- wd2(n = 100, # Total Population size 
