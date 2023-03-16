@@ -47,7 +47,7 @@ The output from `wd2` has class $wd2$ and may be passed through `print`, `summar
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
-```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
+```{r setup, eval=FALSE, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
 # Installing WalkingDead2 having downloaded the file into the current R working directory 
 install.packages("C:/Users/danie/OneDrive - University of Utah/Academics/202301 Spring/Advanced Programming in R and HPC/WalkingDead2_0.1.0.tar.gz", repos = NULL)
 ```
