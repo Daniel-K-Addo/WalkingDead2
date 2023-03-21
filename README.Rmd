@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # WalkingDead2
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/UofUEpiBio/WalkingDead2/workflows/R-CMD-check/badge.svg)](https://github.com/UofUEpiBio/WalkingDead2/actions)
 <!-- badges: end -->
 
 The goal of WalkingDead2 is to simulate the events of infection (of susceptible subjects) and immunization (of infected subjects) in a population of susceptible, infected, and immunized individuals. It is an extension of the [**WalkingDead**](https://github.com/UofUEpiBio/PHS7045-advanced-programming/tree/main/projects/10-walking-dead) project by [George Vegayon](https://github.com/gvegayon).
