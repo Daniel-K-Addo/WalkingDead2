@@ -28,7 +28,7 @@ Currently, **WalkingDead2** accommodates the transition of subjects from the sus
 
 ```{r codeChunk1, eval=FALSE}
 # Installing WalkingDead2 with tar.gz file location correctly specified relative to current R working directory 
-install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
+# install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
 
 # Load the package
 library(WalkingDead2)
