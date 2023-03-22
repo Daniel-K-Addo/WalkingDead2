@@ -12,6 +12,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+require(WalkingDead2)
 ```
 
 # Introduction
@@ -23,18 +25,11 @@ This documentation is intended to illustrate the usage of this package while hig
 Currently, **WalkingDead2** accommodates the transition of subjects from the susceptible to infected state upon contact with an infected subject, as well as the transition of subjects from the infected to immunized state upon contact with an immunized subject. Immunized subjects do not undergo any transitions. This is practical for a communicable disease for which there is a cure that immunizes the infected but no vaccine for the susceptible. This scenario can very well be extended to different fields.
 
 ## Package Installation
-**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo)). All you need is the  file named *WalkingDead2_0.1.tar.gz*. Download the file onto your local drive into your preferred folder from which you will run the installation in R. In R, you can install and load the package using the following code:
+**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo/WalkingDead2)). Download the necessary files onto your local drive into your preferred folder from which you will run the package build in R. In R, you can install and load the package using the tar.gz file if preferred using the following code:
 
-```{r setup, echo=FALSE, results='hide', warning=FALSE, message=FALSE}
-# Installing WalkingDead2 having downloaded the file into the current R working directory 
-install.packages("../WalkingDead2_0.1.tar.gz", repos = NULL)
-
-# Load the package
-library(WalkingDead2)
-```
 
 ```{r codeChunk1, eval=FALSE}
-# Installing WalkingDead2 having downloaded the file into the current R working directory 
+# Installing WalkingDead2 with tar.gz file location correctly specified relative to current R working directory 
 install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
 
 # Load the package
