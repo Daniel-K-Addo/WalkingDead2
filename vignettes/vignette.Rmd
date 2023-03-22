@@ -12,8 +12,6 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-
-require(WalkingDead2)
 ```
 
 # Introduction
@@ -93,6 +91,10 @@ print.wd2(x, ...)
 
 ## Example
 Below is a demonstration of the functions in **WalkingDead2** at work. 
+```{r, echo=FALSE}
+# Load the package
+library(WalkingDead2)
+```
 
 ```{r codeChunk6, warning=FALSE, message=FALSE}
 set.seed(2608)
