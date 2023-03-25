@@ -117,7 +117,7 @@ summary(temp) |> head(10) # or summary.wd2(temp)
 summary(temp) |> tail(5)
 
 # Demonstrate plot.wd2
-plot(temp) # or plot.wd2(temp)
+#plot(temp) # or plot.wd2(temp)
 ```
 ```{r,echo=FALSE}
 temp2<- print(temp)
@@ -138,7 +138,7 @@ temp <- wd2(n = 100, # Total Population size
             nIterations = 100, # Total number of runs
             flight = TRUE # Infected will flee from immunized if TRUE
             )
-plot(temp)
+#plot(temp)
 temp2 <- print(temp)
 ```
 
