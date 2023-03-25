@@ -170,10 +170,10 @@ wd2 <-  function(n, # Population size
                              posY=ans$pos[,2])
       gp <- ggplot2::ggplot(plotData) +
         ggplot2::geom_point(ggplot2::aes(x=posX,y=posY,col=Status), size=2.5) +
-        ggplot2::scale_color_manual(values = c("black", "firebrick","chartreuse3"),
-                                    labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
-                                               paste("Infected:", mean(ans$status==2)*ans$n),
-                                               paste("Immune:", mean(ans$status==3)*ans$n)))
+        ggplot2::scale_color_manual(values = c("black", "firebrick","chartreuse3"))#,
+                                    # labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
+                                    #            paste("Infected:", mean(ans$status==2)*ans$n),
+                                    #            paste("Immune:", mean(ans$status==3)*ans$n)))
     }else if(all(sort(unique(ans$status))==c(1,2))==TRUE){
       # Dataframe for plotting
       plotData <- data.frame(Status=factor(ans$status, labels = c("Susceptible","Infected")),
@@ -181,9 +181,9 @@ wd2 <-  function(n, # Population size
                              posY=ans$pos[,2])
       gp <- ggplot2::ggplot(plotData) +
         ggplot2::geom_point(ggplot2::aes(x=posX,y=posY,col=Status), size=2.5) +
-        ggplot2::scale_color_manual(values = c("black", "firebrick"),
-                                    labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
-                                               paste("Infected:", mean(ans$status==2)*ans$n)))
+        ggplot2::scale_color_manual(values = c("black", "firebrick"))#,
+                                    # labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
+                                    #            paste("Infected:", mean(ans$status==2)*ans$n)))
     }else if(all(sort(unique(ans$status))==c(1,3))==TRUE){
       # Dataframe for plotting
       plotData <- data.frame(Status=factor(ans$status, labels = c("Susceptible","Immune")),
@@ -191,9 +191,9 @@ wd2 <-  function(n, # Population size
                              posY=ans$pos[,2])
       gp <- ggplot2::ggplot(plotData) +
         ggplot2::geom_point(ggplot2::aes(x=posX,y=posY,col=Status), size=2.5) +
-        ggplot2::scale_color_manual(values = c("black","chartreuse3"),
-                                    labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
-                                               paste("Immune:", mean(ans$status==3)*ans$n)))
+        ggplot2::scale_color_manual(values = c("black","chartreuse3"))#,
+                                    # labels = c(paste("Susceptible:", mean(ans$status==1)*ans$n),
+                                    #            paste("Immune:", mean(ans$status==3)*ans$n)))
     }else if(all(sort(unique(ans$status))==c(2,3))==TRUE){
       # Dataframe for plotting
       plotData <- data.frame(Status=factor(ans$status, labels = c("Infected","Immune")),
@@ -201,9 +201,9 @@ wd2 <-  function(n, # Population size
                              posY=ans$pos[,2])
       gp <- ggplot2::ggplot(plotData) +
         ggplot2::geom_point(ggplot2::aes(x=posX,y=posY,col=Status), size=2.5) +
-        ggplot2::scale_color_manual(values = c("firebrick","chartreuse3"),
-                                    labels = c(paste("Infected:", mean(ans$status==2)*ans$n),
-                                               paste("Immune:", mean(ans$status==3)*ans$n)))
+        ggplot2::scale_color_manual(values = c("firebrick","chartreuse3"))#,
+                                    # labels = c(paste("Infected:", mean(ans$status==2)*ans$n),
+                                    #            paste("Immune:", mean(ans$status==3)*ans$n)))
     }else{
       # Dataframe for plotting
       plotData <- data.frame(Status=factor(ans$status, labels = c("Immune")),
@@ -211,10 +211,10 @@ wd2 <-  function(n, # Population size
                              posY=ans$pos[,2])
       gp <- ggplot2::ggplot(plotData) +
         ggplot2::geom_point(ggplot2::aes(x=posX,y=posY,col=Status), size=2.5) +
-        ggplot2::scale_color_manual(values = c("chartreuse3"),
-                                    labels = c(paste("Infected:", mean(ans$status==3)*ans$n)))
+        ggplot2::scale_color_manual(values = c("chartreuse3"))#,
+                                    # labels = c(paste("Infected:", mean(ans$status==3)*ans$n)))
     }
-    gp + ggplot2::ggtitle(paste("Simulation Run:", i)) +
+    gp + #ggplot2::ggtitle(paste("Simulation Run:", i)) +
       ggplot2::xlim(0,1) + ggplot2::ylim(0,1) +
       ggplot2::theme_minimal() +
       ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
