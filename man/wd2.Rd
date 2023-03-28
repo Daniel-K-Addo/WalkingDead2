@@ -67,8 +67,8 @@ sub-population sizes is achieved when there are no infected subjects.
 }
 \examples{
 require(data.table)
-temp <- wd2(n=100, m=15, k=5)
-#summary(temp) |> head()
-#plot(temp)
-#print(temp)
+# temp <- wd2(n=100, m=15, k=5)
+# summary(temp) |> head()
+# plot(temp)
+# print(temp)
 }
