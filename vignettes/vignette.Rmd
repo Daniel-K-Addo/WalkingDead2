@@ -126,7 +126,7 @@ temp2<- print(temp)
 
 This second plot shows the case when flight is set to TRUE.
 
-```{r, echo=FALSE, eval=FALSE}
+```{r, echo=FALSE, eval=TRUE}
 set.seed(2608)
 # Primary function
 temp <- wd2(n = 100, # Total Population size 
@@ -135,10 +135,10 @@ temp <- wd2(n = 100, # Total Population size
             fixedAllocation = FALSE, # Allocation type: Randomize if FALSE
             infect = 0.75, 
             infect_radius = 0.075, # Transition-causing radius
-            nIterations = 100, # Total number of runs
+            nIterations = 20, # Total number of runs
             flight = TRUE # Infected will flee from immunized if TRUE
             )
-#plot(temp)
+plot(temp)
 temp2 <- print(temp)
 ```
 
