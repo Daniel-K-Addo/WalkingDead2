@@ -214,7 +214,8 @@ wd2 <-  function(n, # Population size
         ggplot2::scale_color_manual(values = c("chartreuse3"),
                                     labels = c(paste("Infected:", mean(ans$status==3)*ans$n)))
     }
-    gp + ggplot2::ggtitle(paste("Simulation Run:", i)) +
+    gp +
+      ggplot2::ggtitle(paste("Simulation Run:", i), ) +
       ggplot2::xlim(0,1) + ggplot2::ylim(0,1) +
       ggplot2::theme_minimal() +
       ggplot2::theme(panel.grid.major.x = ggplot2::element_blank(),
@@ -232,6 +233,7 @@ wd2 <-  function(n, # Population size
                      plot.title = ggplot2::element_text(hjust = 0.5),
                      panel.background=ggplot2::element_rect(colour="white", fill = "grey90"))
 
+
   }
   # ------------------------------------------------------------------------------
 
@@ -239,21 +241,21 @@ wd2 <-  function(n, # Population size
   snapshot <- matrix(0, ncol = n, nrow = nIterations+1)
   snapshot[1,] <- ans$status # Status at baseline
 
-  # Setting animation
-  grDevices::graphics.off()
-  fig <- magick::image_graph(350, 350)
-
   # Begin runs
+  files <- replicate(nIterations, tempfile(fileext = ".png"))
   for (i in 1:nIterations) {
 
     update_status(ans)
     snapshot[i+1,] <- ans$status
     p <- plot_process(ans)
+    png(files[i])
     print(p)
     update_pos(ans)
+    dev.off()
   }
 
-  # Code in magick to wrap up plot build???
+  # Animating all the images
+  fig <- magick::image_animate(magick::image_read(files))
 
   structure(list(wd2Summary = snapshot,
                  wd2Plot = fig,
