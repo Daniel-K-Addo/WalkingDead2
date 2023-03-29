@@ -27,10 +27,10 @@
 #' The smaller the infect_radius the smaller the likelihood of transition events by a transition-causing subject.
 #' @examples
 #' require(data.table)
-#' # temp <- wd2(n=100, m=15, k=5)
-#' # summary(temp) |> head()
-#' # plot(temp)
-#' # print(temp)
+#' temp <- wd2(n=100, m=15, k=5)
+#' summary(temp) |> head()
+#' plot(temp)
+#' print(temp)
 #' @export
 wd2 <-  function(n, # Population size
                  m, # Initial Infected Population size
@@ -244,7 +244,6 @@ wd2 <-  function(n, # Population size
   # Begin runs
   files <- replicate(nIterations, tempfile(fileext = ".png"))
   for (i in 1:nIterations) {
-
     update_status(ans)
     snapshot[i+1,] <- ans$status
     p <- plot_process(ans)

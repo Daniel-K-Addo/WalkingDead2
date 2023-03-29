@@ -14,8 +14,7 @@ Imports:
     magick,
     data.table,
     stats,
-    ggplot2,
-    grDevices
+    ggplot2
 Suggests: 
     knitr,
     rmarkdown
