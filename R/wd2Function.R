@@ -253,6 +253,8 @@ wd2 <-  function(n, # Population size
     update_pos(ans)
   }
 
+  # Code in magick to wrap up plot build???
+
   structure(list(wd2Summary = snapshot,
                  wd2Plot = fig,
                  wd2Object = ans),
@@ -278,10 +280,10 @@ summary.wd2 <- function(object,...){
   # Set as data.table and compute estimates of interest
   stateDT <- data.table::setDT(as.data.frame(state))[]
   data.table::setnames(stateDT,1:3,c('Susceptible','Infected','Immune'))
-  stateDT[,Run:=0:(nrow(stateDT)-1)]
-  stateDT[,ChangeSI:= abs(Susceptible - c(NA,Susceptible[-.N]))*n]
-  stateDT[,ChangeII:= (Immune - c(NA,Immune[-.N]))*n]
-  stateDT[,Transitions:= ChangeSI+ChangeII]
+  stateDT[,'Run':=0:(nrow(stateDT)-1)]
+  stateDT[,'ChangeSI':= abs(Susceptible - c(NA,Susceptible[-.N]))*n]
+  stateDT[,'ChangeII':= (Immune - c(NA,Immune[-.N]))*n]
+  stateDT[,"Transitions":= ChangeSI+ChangeII]
   data.table::setcolorder(stateDT, c("Run",'Susceptible','Infected','Immune',
                          "ChangeSI","ChangeII","Transitions"))
   return(stateDT)
