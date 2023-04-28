@@ -5,6 +5,7 @@
 \alias{summary.wd2}
 \alias{plot.wd2}
 \alias{print.wd2}
+\alias{snapshot}
 \title{wd2 - Walking Dead 2}
 \usage{
 wd2(
@@ -23,6 +24,8 @@ wd2(
 \method{plot}{wd2}(x, ...)
 
 \method{print}{wd2}(x, ...)
+
+snapshot(x)
 }
 \arguments{
 \item{n, m, k}{numeric scalars. \code{n} represents the total population size;
@@ -71,4 +74,5 @@ temp <- wd2(n=100, m=15, k=5)
 summary(temp) |> head()
 plot(temp)
 print(temp)
+snapshot(temp)
 }

@@ -31,6 +31,7 @@
 #' summary(temp) |> head()
 #' plot(temp)
 #' print(temp)
+#' snapshot(temp)
 #' @export
 wd2 <-  function(n, # Population size
                  m, # Initial Infected Population size
@@ -316,11 +317,46 @@ print.wd2 <- function(x,...){
   final <- state |> utils::tail()
   if(state[dim(state)[1],2]==0){
     this <- min(which(state[,2]==0)) - 1
-    conclusion <- paste("The pathogen was eliminated successfully during run", this)
+    conclusion <- paste("The pathogen was eliminated successfully after run", this)
   }else{
     conclusion <- paste("The pathogen was NOT eliminated. Infections are still possible.")
   }
   print(conclusion)
   output <- list(snapshot = final)
   return(output)
+}
+#' @rdname wd2
+#' @export
+#' @param x an object of class \code{wd2}
+snapshot <- function(x){
+  snapshotData <- x[["wd2Summary"]]
+  n <- x[["wd2Object"]][["n"]] # Sample Size
+  infect <- x[["wd2Object"]][["infect"]] # Infection rate
+  nIteration <- dim(snapshot)[1]
+  state <- matrix(NA, ncol = 3, nrow = nIteration)
+  for(i in 1:nIteration){
+    state[i, ] <- c(round(mean(snapshot[i,]==1)),
+                    round(mean(snapshot[i,]==2)),
+                    round(mean(snapshot[i,]==3))
+    )
+  }
+  if(state[dim(state)[1],2]==0){
+    runEqui <- min(which(state[,2]==0))
+    conclusion <- data.frame(SampleSize = n,
+                             InfectionRate = infect,
+                             Run = runEqui,
+                             PropSusceptible = state[runEqui,1],
+                             PropInfected = state[runEqui,2],
+                             PropRecovered = state[runEqui,3],
+                             Equilibrium = TRUE)
+  }else{
+    conclusion <- data.frame(SampleSize = n,
+                             InfectionRate = infect,
+                             Run = nIteration,
+                             PropSusceptible = state[nIteration,1],
+                             PropInfected = state[nIteration,2],
+                             PropRecovered = state[nIteration,3],
+                             Equilibrium = FALSE)
+  }
+  return(conclusion)
 }
