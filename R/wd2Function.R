@@ -63,7 +63,8 @@ wd2 <-  function(n, # Population size
     status   = statusGrouping,
     infect = infect,
     radii  = infect_radius,
-    speed  = stats::runif(n, 0.005, .025)/2
+    speed  = stats::runif(n, 0.005, .025)/2,
+    flight = flight
   ))
 
   # Computing distances
@@ -316,7 +317,7 @@ print.wd2 <- function(x,...){
   }
   final <- state |> utils::tail()
   if(state[dim(state)[1],2]==0){
-    this <- min(which(state[,2]==0)) - 1
+    this <- min(which(state[,2]==0)) - 2
     conclusion <- paste("The pathogen was eliminated successfully after run", this)
   }else{
     conclusion <- paste("The pathogen was NOT eliminated. Infections are still possible.")
@@ -332,19 +333,21 @@ snapshot <- function(x){
   snapshotData <- x[["wd2Summary"]]
   n <- x[["wd2Object"]][["n"]] # Sample Size
   infect <- x[["wd2Object"]][["infect"]] # Infection rate
+  flight <- x[["wd2Object"]][["flight"]] # Infection rate
   nIteration <- dim(snapshotData)[1]
   state <- matrix(NA, ncol = 3, nrow = nIteration)
   for(i in 1:nIteration){
-    state[i, ] <- c(round(mean(snapshotData[i,]==1)),
-                    round(mean(snapshotData[i,]==2)),
-                    round(mean(snapshotData[i,]==3))
+    state[i, ] <- c(round(mean(snapshotData[i,]==1),2),
+                    round(mean(snapshotData[i,]==2),2),
+                    round(mean(snapshotData[i,]==3),2)
     )
   }
   if(state[dim(state)[1],2]==0){
-    runEqui <- min(which(state[,2]==0))
+    runEqui <- min(which(state[,2]==0.00))
     conclusion <- data.frame(SampleSize = n,
                              InfectionRate = infect,
-                             Run = runEqui,
+                             Flight = flight,
+                             Run = runEqui-1,
                              PropSusceptible = state[runEqui,1],
                              PropInfected = state[runEqui,2],
                              PropRecovered = state[runEqui,3],
@@ -352,7 +355,8 @@ snapshot <- function(x){
   }else{
     conclusion <- data.frame(SampleSize = n,
                              InfectionRate = infect,
-                             Run = nIteration,
+                             Flight = flight,
+                             Run = nIteration-1,
                              PropSusceptible = state[nIteration,1],
                              PropInfected = state[nIteration,2],
                              PropRecovered = state[nIteration,3],

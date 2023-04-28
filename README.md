@@ -65,8 +65,8 @@ arguments perform the following roles:
   towards the infected population.
 
 The output from `wd2` has class $wd2$ and may be passed through `print`,
-`summary`, and `plot` functions for varied results as demonstrated in
-the example below.
+`summary`, `plot`, and `snapshot` functions for varied results as
+demonstrated in the example below.
 
 ## Example
 
@@ -125,6 +125,16 @@ plot(temp) # or plot.wd2(temp)
 ```
 
 <img src="man/figures/README-example-1.gif" width="100%" />
+
+``` r
+
+# Demonstrate snapshot
+snapshot(temp)
+#>   SampleSize InfectionRate Run PropSusceptible PropInfected PropRecovered
+#> 1        100          0.75   1               1            0             0
+#>   Equilibrium
+#> 1        TRUE
+```
 
     #> [1] "The pathogen was eliminated successfully after run 77"
 

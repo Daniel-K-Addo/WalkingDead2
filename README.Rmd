@@ -43,7 +43,7 @@ There are eight arguments in, `wd2`, the primary function of **WalkingDead2**. F
 * `nIterations`	represents a number of runs during which each subject's sub population membership and location will potentially be updated. This may be viewed as some unit of time.
 * `flight`	a logical which determines if the infected population are programmed to move away from the immunized population (flight) OR move towards the susceptible (fighting to keep population numbers up). By default, the susceptible population will always move away from the infected population whereas the immunized population will always move towards the infected population.
 
-The output from `wd2` has class $wd2$ and may be passed through `print`, `summary`, and `plot` functions for varied results as demonstrated in the example below. 
+The output from `wd2` has class $wd2$ and may be passed through `print`, `summary`, `plot`, and `snapshot` functions for varied results as demonstrated in the example below. 
 
 ## Example
 
@@ -77,6 +77,9 @@ summary(temp) |> tail(5)
 
 # Demonstrate plot.wd2
 plot(temp) # or plot.wd2(temp)
+
+# Demonstrate snapshot
+snapshot(temp)
 ```
 
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
