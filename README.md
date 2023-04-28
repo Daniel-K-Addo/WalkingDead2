@@ -4,6 +4,8 @@
 # WalkingDead2
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/UofUEpiBio/WalkingDead2/workflows/R-CMD-check/badge.svg)](https://github.com/UofUEpiBio/WalkingDead2/actions)
 <!-- badges: end -->
 
 The goal of WalkingDead2 is to simulate the events of infection (of
@@ -16,14 +18,12 @@ project by [George Vegayon](https://github.com/gvegayon).
 ## Installation
 
 **WalkingDead2** is available through the author’s Github ([click
-here](https://github.com/Daniel-K-Addo)). All you need is the file named
-*WalkingDead2_0.1.tar.gz*. Download the file onto your local drive into
-your preferred folder from which you will run the installation in R. In
-R, you can install and load the package using the following code:
+here](https://github.com/Daniel-K-Addo)). In R, you can install and load
+the package using the following code:
 
 ``` r
-# Installing WalkingDead2 having downloaded the file into the current R working directory 
-install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
+# Installing WalkingDead2 from github 
+devtools::install_github("Daniel-K-Addo/WalkingDead2")
 ```
 
 ## Brief Details
@@ -89,7 +89,7 @@ temp <- wd2(n = 100, # Total Population size
 
 # Demonstrate print.wd2
 print(temp) # or print.wd2(temp)
-#> [1] "The pathogen was eliminated successfully during run 77"
+#> [1] "The pathogen was eliminated successfully after run 77"
 #> $snapshot
 #>        [,1] [,2] [,3]
 #>  [96,]   33    0   67
@@ -126,7 +126,7 @@ plot(temp) # or plot.wd2(temp)
 
 <img src="man/figures/README-example-1.gif" width="100%" />
 
-    #> [1] "The pathogen was eliminated successfully during run 77"
+    #> [1] "The pathogen was eliminated successfully after run 77"
 
 This second plot shows the case when flight is set to TRUE.
 

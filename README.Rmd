@@ -23,11 +23,11 @@ The goal of WalkingDead2 is to simulate the events of infection (of susceptible 
 
 ## Installation
 
-**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo)). All you need is the  file named *WalkingDead2_0.1.tar.gz*. Download the file onto your local drive into your preferred folder from which you will run the installation in R. In R, you can install and load the package using the following code:
+**WalkingDead2** is available through the author's Github ([click here](https://github.com/Daniel-K-Addo)). In R, you can install and load the package using the following code:
 
 ``` r
-# Installing WalkingDead2 having downloaded the file into the current R working directory 
-install.packages("WalkingDead2_0.1.tar.gz", repos = NULL)
+# Installing WalkingDead2 from github 
+devtools::install_github("Daniel-K-Addo/WalkingDead2")
 ```
 
 ## Brief Details

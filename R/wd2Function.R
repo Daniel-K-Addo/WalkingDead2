@@ -332,12 +332,12 @@ snapshot <- function(x){
   snapshotData <- x[["wd2Summary"]]
   n <- x[["wd2Object"]][["n"]] # Sample Size
   infect <- x[["wd2Object"]][["infect"]] # Infection rate
-  nIteration <- dim(snapshot)[1]
+  nIteration <- dim(snapshotData)[1]
   state <- matrix(NA, ncol = 3, nrow = nIteration)
   for(i in 1:nIteration){
-    state[i, ] <- c(round(mean(snapshot[i,]==1)),
-                    round(mean(snapshot[i,]==2)),
-                    round(mean(snapshot[i,]==3))
+    state[i, ] <- c(round(mean(snapshotData[i,]==1)),
+                    round(mean(snapshotData[i,]==2)),
+                    round(mean(snapshotData[i,]==3))
     )
   }
   if(state[dim(state)[1],2]==0){
