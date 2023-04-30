@@ -350,7 +350,7 @@ snapshot <- function(x){
                              Run = runEqui-1,
                              PropSusceptible = state[runEqui,1],
                              PropInfected = state[runEqui,2],
-                             PropRecovered = state[runEqui,3],
+                             PropImmune = state[runEqui,3],
                              Equilibrium = TRUE)
   }else{
     conclusion <- data.frame(SampleSize = n,
@@ -359,7 +359,7 @@ snapshot <- function(x){
                              Run = nIteration-1,
                              PropSusceptible = state[nIteration,1],
                              PropInfected = state[nIteration,2],
-                             PropRecovered = state[nIteration,3],
+                             PropImmune = state[nIteration,3],
                              Equilibrium = FALSE)
   }
   return(conclusion)
