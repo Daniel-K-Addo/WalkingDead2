@@ -1,8 +1,8 @@
 #!/bin/sh
 #SBATCH --job-name=WalkingDead2_simulations
-#SBATCH --time=12:00:00
-#SBATCH --account=kingspeak
-#SBATCH --partition=phs7045
+#SBATCH --time=8:00:00
+#SBATCH --account= owner-guest
+#SBATCH --partition= notchpeak-guest
 
-module load R/4.2.2 imagemagick/7.0.8-7
+module load R/4.2.2
 Rscript --vanilla tempSlurm.R
