@@ -89,7 +89,7 @@ temp <- wd2(n = 100, # Total Population size
 
 # Demonstrate print.wd2
 print(temp) # or print.wd2(temp)
-#> [1] "The pathogen was eliminated successfully after run 77"
+#> [1] "The pathogen was eliminated successfully after run 76"
 #> $snapshot
 #>        [,1] [,2] [,3]
 #>  [96,]   33    0   67
@@ -130,16 +130,72 @@ plot(temp) # or plot.wd2(temp)
 
 # Demonstrate snapshot
 snapshot(temp)
-#>   SampleSize InfectionRate Run PropSusceptible PropInfected PropRecovered
-#> 1        100          0.75   1               1            0             0
-#>   Equilibrium
-#> 1        TRUE
+#>   SampleSize InfectionRate Flight Run PropSusceptible PropInfected
+#> 1        100          0.75  FALSE  77            0.33            0
+#>   PropRecovered Equilibrium
+#> 1          0.67        TRUE
 ```
 
-    #> [1] "The pathogen was eliminated successfully after run 77"
+    #> [1] "The pathogen was eliminated successfully after run 76"
 
 This second plot shows the case when flight is set to TRUE.
 
 <img src="man/figures/README-unnamed-chunk-3-1.gif" width="100%" />
 
     #> [1] "The pathogen was NOT eliminated. Infections are still possible."
+
+## Simulations
+
+It is possible to run multiple simulations with varying parameters of
+interests for different purposes. An example is demonstrated below where
+the interest could be in the number of times EQUILIBRIUM was acheived
+within a 100 trials. The example uses the advantage of parallel
+computing and the `snapshot` function the `WalkingDead2` package. This
+example is not ran.
+
+``` r
+require(dplyr)
+require(WalkingDead2)
+
+NN <- seq(50, 200, length=3) # Sample size options
+RR <- seq(0.25, 0.75, length=3) # Infection Rate options
+FF <- c(TRUE, FALSE) # Flight or fight
+NNRRFF <- expand.grid(NN,RR,FF) # Combinations of NN and RR
+NNRRFFrep <- NNRRFF %>% slice(rep(1:n(), each=500))
+
+simwd2 <- function(j){
+  NN <- NNRRFFrep[j,1]
+  RR <- NNRRFFrep[j,2]
+  FF <- NNRRFFrep[j,3]
+  testRun <- wd2(n = NN, # Population size
+                 m = round(0.15*NN), # Initial Infected Population size
+                 k = round(0.10*NN), # # Initial Immunized Population size
+                 fixedAllocation = FALSE, # Allocation type: randomized, if FALSE
+                 infect = RR, # infection rate
+                 infect_radius = .075, # radius of infection
+                 nIterations = 50, # Number of runs
+                 flight = FF # Infected will flee from immunized if TRUE
+  )
+  keepThis <- snapshot(testRun)
+  return(keepThis)
+}
+
+# using parallel package with at least 16 cores available
+require(parallel)
+cl <- parallel::makeCluster(16)
+clusterExport(cl,c("NNRRFFrep", "simwd2"))#,"wd2","simwd2","snapshot"))
+clusterEvalQ(cl, library(WalkingDead2))
+temp <- do.call(rbind.data.frame,parLapply(cl,1:dim(NNRRFFrep)[1],simwd2))
+stopCluster(cl)
+saveRDS(temp, "SimWD2Out.rds")
+
+# OR using slurmR on a high performance computer
+require(slurmR)
+cl <- makeSlurmCluster(16, partition = "notchpeak-shared-short",
+                       account = "notchpeak-shared-short")
+clusterExport(cl,c("NNRRFFrep", "simwd2"))#,"wd2","simwd2","snapshot"))
+clusterEvalQ(cl, library(WalkingDead2))
+temp <- do.call(rbind.data.frame,parLapply(cl,1:16,simwd2))
+stopCluster(cl)
+saveRDS(temp, "SimWD2Out.rds")
+```
